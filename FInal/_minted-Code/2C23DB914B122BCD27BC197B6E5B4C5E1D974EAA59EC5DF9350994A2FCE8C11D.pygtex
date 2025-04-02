@@ -1,0 +1,71 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{************************************************************************}
+\PYG{o}{*} \PYG{n}{auCdl} \PYG{n}{Netlist}\PYG{p}{:}
+\PYG{o}{*} 
+\PYG{o}{*} \PYG{n}{Library} \PYG{n}{Name}\PYG{p}{:}  \PYG{l+m+mi}{109501201}
+\PYG{o}{*} \PYG{n}{Top} \PYG{n}{Cell} \PYG{n}{Name}\PYG{p}{:} \PYG{n}{SRAM6T}
+\PYG{o}{*} \PYG{n}{View} \PYG{n}{Name}\PYG{p}{:}     \PYG{n}{schematic}
+\PYG{o}{*} \PYG{n}{Netlisted} \PYG{n}{on}\PYG{p}{:}  \PYG{n}{Jan}  \PYG{l+m+mi}{5} \PYG{l+m+mi}{02}\PYG{p}{:}\PYG{l+m+mi}{19}\PYG{p}{:}\PYG{l+m+mi}{39} \PYG{l+m+mi}{2024}
+\PYG{o}{************************************************************************}
+\PYG{p}{.}\PYG{n}{TEMP} \PYG{l+m+mi}{25}
+\PYG{p}{.}\PYG{n}{OPTION} \PYG{n}{POST} \PYG{p}{=} \PYG{l+m+mi}{2}
+\PYG{p}{.}\PYG{n}{LIB} \PYG{l+s}{\PYGZdq{}/E/memory\PYGZus{}student/s109501201/sh/N16ADFP\PYGZus{}SPICE\PYGZus{}MODEL/n16adfp\PYGZus{}spice\PYGZus{}model\PYGZus{}v1d0\PYGZus{}usage.l\PYGZdq{}} \PYG{n}{TTMacro\PYGZus{}MOS\PYGZus{}MOSCAP}
+\PYG{o}{************************************************************************}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{INCLUDE}  \PYG{o}{/}\PYG{n}{E}\PYG{o}{/}\PYG{n}{cad\PYGZus{}install}\PYG{o}{/}\PYG{n}{sh}\PYG{o}{/}\PYG{n}{N16ADFP\PYGZus{}iPDK}\PYG{o}{/}\PYG{n}{tsmcN16}\PYG{o}{/}\PYG{p}{.}\PYG{o}{./}\PYG{n}{Calibre}\PYG{o}{/}\PYG{n}{lvs}\PYG{o}{/}\PYG{n+nb}{source}\PYG{p}{.}\PYG{n}{added}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{BIPOLAR}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{RESI} \PYG{p}{=} \PYG{l+m+mi}{2000} 
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{RESVAL}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{CAPVAL}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{DIOPERI}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{DIOAREA}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{EQUATION}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{SCALE} \PYG{n}{METER}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{MEGA}
+
+\PYG{o}{************************************************************************}
+\PYG{o}{*} \PYG{n}{Library} \PYG{n}{Name}\PYG{p}{:} \PYG{l+m+mi}{109501201}
+\PYG{o}{*} \PYG{n}{Cell} \PYG{n}{Name}\PYG{p}{:}    \PYG{n}{SRAM6T}
+\PYG{o}{*} \PYG{n}{View} \PYG{n}{Name}\PYG{p}{:}    \PYG{n}{schematic}
+\PYG{o}{************************************************************************}
+
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{SUBCKT} \PYG{n}{SRAM6T} \PYG{n}{VBL} \PYG{n}{VBLB} \PYG{n}{VDD} \PYG{n}{VSS} \PYG{n}{VWL}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{PININFO} \PYG{n}{VBL}\PYG{p}{:}\PYG{n+no}{I} \PYG{n}{VBLB}\PYG{p}{:}\PYG{n+no}{I} \PYG{n}{VDD}\PYG{p}{:}\PYG{n+no}{I} \PYG{n}{VSS}\PYG{p}{:}\PYG{n+no}{I} \PYG{n}{VWL}\PYG{p}{:}\PYG{n+no}{I}
+\PYG{n}{MM3} \PYG{n}{net09} \PYG{n}{net011} \PYG{n}{VDD} \PYG{n}{VDD} \PYG{n}{pch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{MM0} \PYG{n}{net011} \PYG{n}{net09} \PYG{n}{VDD} \PYG{n}{VDD} \PYG{n}{pch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{MM5} \PYG{n}{VBLB} \PYG{n}{VWL} \PYG{n}{net011} \PYG{n}{VSS} \PYG{n}{nch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{MM4} \PYG{n}{net09} \PYG{n}{VWL} \PYG{n}{VBL} \PYG{n}{VSS} \PYG{n}{nch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{MM2} \PYG{n}{net011} \PYG{n}{net09} \PYG{n}{VSS} \PYG{n}{VSS} \PYG{n}{nch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{MM7} \PYG{n}{net09} \PYG{n}{net011} \PYG{n}{VSS} \PYG{n}{VSS} \PYG{n}{nch\PYGZus{}svt\PYGZus{}mac} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mf}{16.0}\PYG{n}{n} \PYG{n}{nfin}\PYG{p}{=}\PYG{l+m+mi}{4} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{o}{*}\PYG{p}{.}\PYG{n}{ENDS}
+
+
+\PYG{o}{*************************************************************************}
+\PYG{o}{***} \PYG{n}{change} \PYG{n}{this} \PYG{n}{Vdd} \PYG{p}{=} \PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{l+m+mf}{0.6}\PYG{p}{,} \PYG{l+m+mf}{0.4}
+\PYG{p}{.}\PYG{n}{param} \PYG{n}{V1} \PYG{p}{=} \PYG{l+m+mf}{0.4}
+
+\PYG{o}{*************************************************************************}
+\PYG{p}{.}\PYG{k}{global} \PYG{n}{VDD} \PYG{n}{VSS}
+\PYG{n}{VSS}  \PYG{n}{VSS}  \PYG{l+m+mi}{0}     \PYG{n}{dc}  \PYG{l+m+mi}{0}
+\PYG{n}{VDD}  \PYG{n}{VDD}  \PYG{l+m+mi}{0}     \PYG{n}{dc} \PYG{n}{V1}
+
+
+\PYG{o}{*********************************} \PYG{n+nb}{source} \PYG{o}{********************************}
+
+\PYG{n}{VWL}  \PYG{n}{VWL}  \PYG{n}{gnd}  \PYG{n}{dc} \PYG{n}{V1}
+\PYG{n}{VBL}  \PYG{n}{VBL}  \PYG{n}{gnd}  \PYG{n}{dc} \PYG{n}{V1}
+\PYG{n}{VBLB} \PYG{n}{VBLB} \PYG{n}{gnd}  \PYG{n}{dc} \PYG{l+m+mi}{0}
+\PYG{o}{****} \PYG{n}{change} \PYG{n}{this} \PYG{n}{net011}\PYG{p}{(}\PYG{n+nb}{find} \PYG{n}{RSNM}\PYG{p}{)} \PYG{n+nb}{or} \PYG{n}{net09}\PYG{p}{(}\PYG{n+nb}{find} \PYG{n}{WNM}\PYG{p}{)}
+\PYG{n}{VIN}  \PYG{n}{net09}  \PYG{n}{gnd}
+
+\PYG{o}{*******************************}  \PYG{n}{circuit} \PYG{o}{*********************************}
+\PYG{o}{*} \PYG{n}{XSRAM}  \PYG{n}{VBL} \PYG{n}{VBLB} \PYG{n}{VDD}\PYG{o}{!} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{VWL} \PYG{n}{SRAM6T}
+
+
+\PYG{o}{***} \PYG{n}{only} \PYG{n}{the} \PYG{n}{first} \PYG{n}{dc} \PYG{n}{is} \PYG{n}{effective}
+\PYG{p}{.}\PYG{n}{dc} \PYG{n}{VIN}  \PYG{l+m+mi}{0} \PYG{n}{V1} \PYG{l+m+mf}{0.01}\PYG{n}{V}
+
+\PYG{p}{.}\PYG{n}{probe} \PYG{n}{WNM} \PYG{p}{=}   \PYG{l+s}{\PYGZsq{}V(net011)\PYGZsq{}}
+\PYG{p}{.}\PYG{n}{probe} \PYG{n}{RSNM}  \PYG{p}{=} \PYG{l+s}{\PYGZsq{}V(net09)\PYGZsq{}}
+\PYG{p}{.}\PYG{n}{option} \PYG{n}{post}
+\PYG{p}{.}\PYG{k}{end}
+\end{Verbatim}

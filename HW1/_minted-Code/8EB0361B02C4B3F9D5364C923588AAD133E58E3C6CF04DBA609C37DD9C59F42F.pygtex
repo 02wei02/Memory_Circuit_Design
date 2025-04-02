@@ -1,0 +1,52 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{***}\PYG{+w}{ }\PYG{n+nx}{Inverter}\PYG{+w}{ }\PYG{o}{***}
+\PYG{o}{***}\PYG{+w}{ }\PYG{p}{.}\PYG{n+nx}{protect}
+\PYG{p}{.}\PYG{n+nx}{inc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}/home/bc/c109501201/Memory/65nm\PYGZus{}bulk.pm\PYGZdq{}}
+\PYG{p}{.}\PYG{n+nx}{unprotect}
+\PYG{o}{***}
+\PYG{p}{.}\PYG{n+nx}{param}\PYG{+w}{ }\PYG{n+nx}{Vmax}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{o}{***}
+\PYG{p}{.}\PYG{n+nx}{global}\PYG{+w}{ }\PYG{n+nx}{VCC}\PYG{p}{!}\PYG{+w}{ }\PYG{n+nx}{VSS}\PYG{p}{!}
+\PYG{n+nx}{VCC}\PYG{+w}{    }\PYG{n+nx}{VCC}\PYG{p}{!}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{    }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{Vmax}
+\PYG{n+nx}{VSS}\PYG{+w}{    }\PYG{n+nx}{VSS}\PYG{p}{!}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{    }\PYG{n+nx}{dc}\PYG{+w}{  }\PYG{l+m+mi}{0}
+
+\PYG{o}{***}\PYG{n+nx}{inverter}
+\PYG{o}{**}\PYG{+w}{ }\PYG{n+nx}{Mos}\PYG{+w}{ }\PYG{n+nx}{D}\PYG{+w}{ }\PYG{n+nx}{G}\PYG{+w}{ }\PYG{n+nx}{S}\PYG{+w}{ }\PYG{n+nx}{B}
+\PYG{o}{**}\PYG{+w}{ }\PYG{p}{.}\PYG{n+nx}{ic}\PYG{+w}{ }\PYG{n+nx}{是初始偏壓值}
+\PYG{p}{.}\PYG{n+nx}{subckt}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{in}\PYG{+w}{ }\PYG{n+nx}{out}\PYG{+w}{ }\PYG{n+nx}{Wp}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nx}{Wn}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n+nx}{ic}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{p}{!}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nx}{VDD}
+\PYG{n+nx}{Mp}\PYG{+w}{ }\PYG{n+nx}{out}\PYG{+w}{ }\PYG{n+nx}{in}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{p}{!}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{p}{!}\PYG{+w}{ }\PYG{n+nx}{pmos}\PYG{+w}{ }\PYG{n+nx}{w}\PYG{p}{=}\PYG{+w}{ }\PYG{err}{\PYGZsq{}}\PYG{n+nx}{Wp}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{n+nx}{u}\PYG{err}{\PYGZsq{}}\PYG{+w}{ }\PYG{n+nx}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n+nx}{n}\PYG{+w}{ }\PYG{n+nx}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n+nx}{Mn}\PYG{+w}{ }\PYG{n+nx}{out}\PYG{+w}{ }\PYG{n+nx}{in}\PYG{+w}{ }\PYG{n+nx}{VSS}\PYG{p}{!}\PYG{+w}{ }\PYG{n+nx}{VSS}\PYG{p}{!}\PYG{+w}{    }\PYG{n+nx}{nmos}\PYG{+w}{ }\PYG{n+nx}{w}\PYG{p}{=}\PYG{+w}{ }\PYG{err}{\PYGZsq{}}\PYG{n+nx}{Wn}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{n+nx}{u}\PYG{err}{\PYGZsq{}}\PYG{+w}{ }\PYG{n+nx}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n+nx}{n}\PYG{+w}{ }\PYG{n+nx}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n+nx}{ends}
+
+\PYG{o}{***}\PYG{+w}{ }\PYG{l+m+mDouble}{1.}\PYG{n+nx}{a}
+\PYG{n+nx}{xinv05}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{ratio05}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{Wp}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mDouble}{0.5}\PYG{+w}{ }\PYG{n+nx}{Wn}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{n+nx}{xinv1}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{ratio1}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{Wp}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nx}{Wn}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{n+nx}{xinv2}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{ratio2}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{Wp}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n+nx}{Wn}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{o}{***}\PYG{+w}{ }\PYG{l+m+mDouble}{1.}\PYG{n+nx}{b}
+\PYG{n+nx}{xinv4}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{V1}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{n+nx}{xinv5}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{V08}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mDouble}{0.8}
+\PYG{n+nx}{xinv6}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{V06}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mDouble}{0.6}
+\PYG{n+nx}{xinv7}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{V04}\PYG{+w}{ }\PYG{n+nx}{inv}\PYG{+w}{ }\PYG{n+nx}{VDD}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mDouble}{0.4}
+
+\PYG{o}{***}\PYG{+w}{ }\PYG{n+nx}{訊號源}
+\PYG{n+nx}{va}\PYG{+w}{ }\PYG{n+nx}{vin}\PYG{+w}{ }\PYG{n+nx}{VSS}\PYG{p}{!}
+
+\PYG{p}{.}\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{va}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{n+nx}{Vmax}\PYG{+w}{ }\PYG{l+m+mDouble}{0.001}\PYG{n+nx}{V}
+\PYG{p}{.}\PYG{n+nx}{option}\PYG{+w}{ }\PYG{n+nx}{post}
+\PYG{o}{***}\PYG{+w}{ }\PYG{l+m+mDouble}{1.}\PYG{n+nx}{c}\PYG{+w}{ }\PYG{n+nx}{可以量}\PYG{+w}{ }\PYG{n+nx}{Ids}
+\PYG{p}{.}\PYG{n+nx}{probe}\PYG{+w}{ }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{I}\PYG{p}{(}\PYG{n+nx}{xinv1}\PYG{p}{.}\PYG{n+nx}{Mp}\PYG{p}{)}
+\PYG{p}{.}\PYG{n+nx}{probe}\PYG{+w}{ }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{I}\PYG{p}{(}\PYG{n+nx}{xinv1}\PYG{p}{.}\PYG{n+nx}{Mn}\PYG{p}{)}
+
+\PYG{p}{.}\PYG{n+nx}{probe}\PYG{+w}{ }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{I}\PYG{p}{(}\PYG{n+nx}{xinv05}\PYG{p}{.}\PYG{n+nx}{Mp}\PYG{p}{)}
+
+\PYG{p}{.}\PYG{n+nx}{probe}\PYG{+w}{ }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{I}\PYG{p}{(}\PYG{n+nx}{xinv2}\PYG{p}{.}\PYG{n+nx}{Mp}\PYG{p}{)}
+\PYG{o}{***}\PYG{+w}{ }\PYG{l+m+mDouble}{1.}\PYG{n+nx}{d}\PYG{+w}{ }\PYG{n+nx}{去}\PYG{+w}{ }\PYG{n+nx}{lis}\PYG{+w}{ }\PYG{n+nx}{檔找資料}\PYG{err}{，}\PYG{n+nx}{繪圖}
+\PYG{o}{**}\PYG{+w}{ }\PYG{n+nx}{Way}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n+nx}{print}\PYG{+w}{ }\PYG{n+nx}{Vo}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{err}{\PYGZsq{}}\PYG{n+nx}{V}\PYG{p}{(}\PYG{n+nx}{ratio1}\PYG{p}{)}\PYG{err}{\PYGZsq{}}
+\PYG{p}{.}\PYG{n+nx}{print}\PYG{+w}{ }\PYG{n+nx}{Idd}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{err}{\PYGZsq{}}\PYG{n+nx}{I}\PYG{p}{(}\PYG{n+nx}{xinv1}\PYG{p}{.}\PYG{n+nx}{Mp}\PYG{p}{)}\PYG{err}{\PYGZsq{}}
+\PYG{o}{**}\PYG{+w}{ }\PYG{n+nx}{這是平均}\PYG{+w}{ }\PYG{n+nx}{power}\PYG{+w}{ }\PYG{n+nx}{不是題目要求}
+\PYG{p}{.}\PYG{n+nx}{meas}\PYG{+w}{ }\PYG{n+nx}{dc}\PYG{+w}{ }\PYG{n+nx}{pwr}\PYG{+w}{ }\PYG{n+nx}{avg}\PYG{+w}{ }\PYG{n+nx}{power}\PYG{+w}{ }\PYG{n+nx}{from}\PYG{p}{=}\PYG{l+m+mi}{0}\PYG{n+nx}{V}\PYG{+w}{ }\PYG{n+nx}{to}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{n+nx}{V}
+\PYG{p}{.}\PYG{n+nx}{end}
+\end{Verbatim}

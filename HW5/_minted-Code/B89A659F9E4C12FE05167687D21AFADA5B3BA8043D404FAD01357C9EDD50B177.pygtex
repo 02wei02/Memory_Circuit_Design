@@ -1,0 +1,66 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{***} \PYG{n}{subcircuit} \PYG{o}{***}
+\PYG{o}{***}\PYG{n}{inverter}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n+nb}{inv} \PYG{n}{in} \PYG{n}{out} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.1} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.065}
+\PYG{n}{Mp} \PYG{n}{out} \PYG{n}{in} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn} \PYG{n}{out} \PYG{n}{in} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{nmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n}{ends}
+\PYG{o}{***} \PYG{n}{TG} \PYG{p}{:} \PYG{n}{Transmission} \PYG{n}{Gate}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{TG} \PYG{n}{in} \PYG{n}{out} \PYG{n}{en} \PYG{n}{enbar} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.4} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.2}
+\PYG{n}{Mp} \PYG{n}{out} \PYG{n}{enbar} \PYG{n}{in} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn} \PYG{n}{out}   \PYG{n}{en}  \PYG{n}{in} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{nmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n}{ends}
+
+\PYG{o}{***} \PYG{n}{buf} \PYG{p}{:} \PYG{n}{buffer}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{buf} \PYG{n}{in} \PYG{n}{out}
+\PYG{n}{xinv1} \PYG{n}{in} \PYG{l+m+mi}{1}  \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mi}{10} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mi}{1}
+\PYG{n}{xinv2} \PYG{l+m+mi}{1} \PYG{n}{out} \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mi}{20} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n}{ends}
+
+\PYG{o}{***} \PYG{n}{D2to4} \PYG{p}{:} \PYG{l+m+mi}{2} \PYG{n}{to} \PYG{l+m+mi}{4} \PYG{n}{decoder}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{D2to4} \PYG{n}{in1} \PYG{n}{in0} \PYG{n}{out3} \PYG{n}{out2} \PYG{n}{out1} \PYG{n}{out0}
+\PYG{n}{xinv0} \PYG{n}{in1} \PYG{n}{in1B} \PYG{n+nb}{inv} 
+\PYG{n}{xinv1} \PYG{n}{in0} \PYG{n}{in0B} \PYG{n+nb}{inv} 
+
+\PYG{n}{xAND1}  \PYG{n}{in1B} \PYG{n}{in0B} \PYG{n}{out0} \PYG{n}{AND} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND2}  \PYG{n}{in1B} \PYG{n}{in0}  \PYG{n}{out1} \PYG{n}{AND} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND3}  \PYG{n}{in1}  \PYG{n}{in0B} \PYG{n}{out2} \PYG{n}{AND} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND4}  \PYG{n}{in1}  \PYG{n}{in0}  \PYG{n}{out3} \PYG{n}{AND} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{p}{.}\PYG{n}{ends}
+
+\PYG{o}{***} \PYG{n}{D2to4} \PYG{p}{:} \PYG{l+m+mi}{2} \PYG{n}{to} \PYG{l+m+mi}{4} \PYG{n}{decoder} \PYG{n}{Having} \PYG{n}{SA} \PYG{n}{enabler}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{D2to4sen} \PYG{n}{in1} \PYG{n}{in0} \PYG{n}{sen} \PYG{n}{out3} \PYG{n}{out2} \PYG{n}{out1} \PYG{n}{out0}
+\PYG{n}{xinv0} \PYG{n}{in1} \PYG{n}{in1B} \PYG{n+nb}{inv} 
+\PYG{n}{xinv1} \PYG{n}{in0} \PYG{n}{in0B} \PYG{n+nb}{inv} 
+
+\PYG{n}{xAND1}  \PYG{n}{in1B} \PYG{n}{in0B} \PYG{n}{sen} \PYG{n}{out0} \PYG{n}{AND3} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND2}  \PYG{n}{in1B} \PYG{n}{in0}  \PYG{n}{sen} \PYG{n}{out1} \PYG{n}{AND3} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND3}  \PYG{n}{in1}  \PYG{n}{in0B} \PYG{n}{sen} \PYG{n}{out2} \PYG{n}{AND3} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xAND4}  \PYG{n}{in1}  \PYG{n}{in0}  \PYG{n}{sen} \PYG{n}{out3} \PYG{n}{AND3} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{p}{.}\PYG{n}{ends}
+
+
+\PYG{o}{***} \PYG{n}{AND} \PYG{n}{Gate} \PYG{k}{for} \PYG{l+m+mi}{2} \PYG{n}{inputs}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{AND} \PYG{n}{in1} \PYG{n}{in2} \PYG{n}{out} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{Mn1}  \PYG{l+m+mi}{1}    \PYG{n}{in1}     \PYG{n}{gnd} \PYG{n}{gnd}  \PYG{n}{nmos}  \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn2}  \PYG{n}{nout} \PYG{n}{in2}     \PYG{l+m+mi}{1}   \PYG{n}{gnd}  \PYG{n}{nmos}  \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+
+\PYG{n}{Mp1}  \PYG{n}{nout} \PYG{n}{in1}     \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mp2}  \PYG{n}{nout} \PYG{n}{in2}     \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{xinv} \PYG{n}{nout} \PYG{n}{out} \PYG{n+nb}{inv}
+\PYG{p}{.}\PYG{n}{ends}
+
+\PYG{o}{***} \PYG{n}{AND} \PYG{k}{for} \PYG{l+m+mi}{3} \PYG{n}{inputs}
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n}{AND3} \PYG{n}{in1} \PYG{n}{in2} \PYG{n}{in3} \PYG{n}{out} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.2} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{Mn1}  \PYG{l+m+mi}{1}    \PYG{n}{in1}     \PYG{n}{gnd} \PYG{n}{gnd}  \PYG{n}{nmos}  \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn2}  \PYG{l+m+mi}{2}    \PYG{n}{in2}     \PYG{l+m+mi}{1}   \PYG{n}{gnd}  \PYG{n}{nmos}  \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn3}  \PYG{n}{nout} \PYG{n}{in3}     \PYG{l+m+mi}{2}   \PYG{n}{gnd}  \PYG{n}{nmos}  \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+
+
+\PYG{n}{Mp1}  \PYG{n}{nout} \PYG{n}{in1}     \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mp2}  \PYG{n}{nout} \PYG{n}{in2}     \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mp3}  \PYG{n}{nout} \PYG{n}{in3}     \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{VCC}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{xinv} \PYG{n}{nout} \PYG{n}{out} \PYG{n+nb}{inv}
+\PYG{p}{.}\PYG{n}{ends}
+
+\end{Verbatim}

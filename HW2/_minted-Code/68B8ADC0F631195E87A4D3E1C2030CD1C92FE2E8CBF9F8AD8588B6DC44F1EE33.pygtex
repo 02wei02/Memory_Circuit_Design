@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{} Specify the Excel file path}
+\PYG{n}{excelFilePath}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}D:\PYGZbs{}Document\PYGZbs{}Senior\PYGZbs{}Memory\PYGZus{}Circuit\PYGZus{}Design\PYGZbs{}HW2\PYGZbs{}SRAM8T.xlsx\PYGZdq{}}\PYG{p}{;}
+\PYG{c}{\PYGZpc{} Read data from Excel}
+\PYG{n}{data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{xlsread}\PYG{p}{(}\PYG{n}{excelFilePath}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{);}
+
+\PYG{n+nb}{close}\PYG{p}{;}
+\PYG{c}{\PYGZpc{} Extract data}
+\PYG{n}{VI}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{(:,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{);}\PYG{+w}{  }\PYG{c}{\PYGZpc{} Assuming VI is in the first column}
+\PYG{n}{VOr}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{(:,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n}{VOw}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{(:,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{);}
+\PYG{c}{\PYGZpc{}VOgnd = data(:, 2);  \PYGZpc{} Assuming VO is in the second column}
+\PYG{c}{\PYGZpc{}VOVdd = data(:, 3);}
+
+\PYG{c}{\PYGZpc{} Plot SNM}
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{n+nb}{width}\PYG{p}{=}\PYG{l+m+mi}{500}\PYG{p}{;}\PYG{c}{\PYGZpc{}宽度，像素数}
+\PYG{n+nb}{height}\PYG{p}{=}\PYG{l+m+mi}{500}\PYG{p}{;}\PYG{c}{\PYGZpc{}高度}
+\PYG{n}{left}\PYG{p}{=}\PYG{l+m+mi}{200}\PYG{p}{;}\PYG{c}{\PYGZpc{}距屏幕左下角水平距离}
+\PYG{n}{bottem}\PYG{p}{=}\PYG{l+m+mi}{200}\PYG{p}{;}\PYG{c}{\PYGZpc{}距屏幕左下角垂直距离}
+\PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb}{gcf}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}position\PYGZsq{}}\PYG{p}{,[}\PYG{n}{left}\PYG{p}{,}\PYG{n}{bottem}\PYG{p}{,}\PYG{n+nb}{width}\PYG{p}{,}\PYG{n+nb}{height}\PYG{p}{])}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{VI}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VOr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}b\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n}{hold}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{VOr}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VI}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}g\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n}{hold}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n+nb}{width}\PYG{p}{=}\PYG{l+m+mi}{500}\PYG{p}{;}\PYG{c}{\PYGZpc{}宽度，像素数}
+\PYG{n+nb}{height}\PYG{p}{=}\PYG{l+m+mi}{500}\PYG{p}{;}\PYG{c}{\PYGZpc{}高度}
+\PYG{n}{left}\PYG{p}{=}\PYG{l+m+mi}{200}\PYG{p}{;}\PYG{c}{\PYGZpc{}距屏幕左下角水平距离}
+\PYG{n}{bottem}\PYG{p}{=}\PYG{l+m+mi}{200}\PYG{p}{;}\PYG{c}{\PYGZpc{}距屏幕左下角垂直距离}
+\PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb}{gcf}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}position\PYGZsq{}}\PYG{p}{,[}\PYG{n}{left}\PYG{p}{,}\PYG{n}{bottem}\PYG{p}{,}\PYG{n+nb}{width}\PYG{p}{,}\PYG{n+nb}{height}\PYG{p}{])}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{VI}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VOr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}b\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n}{hold}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{VOw}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VI}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}g\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{n}{hold}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+\end{Verbatim}

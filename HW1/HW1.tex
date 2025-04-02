@@ -1,0 +1,485 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{float}
+\geometry{a4paper, left=2cm, right=2cm, top=2.54cm, bottom=2.54cm}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage[hidelinks]{hyperref}
+
+% 段落間距  (begin doc 才設定)
+\usepackage{parskip}
+    % 普通文字，行距
+    \usepackage[onehalfspacing]{setspace}
+    
+\usepackage{tabularx}
+
+\usepackage{fontspec,xltxtra,xunicode}
+
+\usepackage{titlesec}
+
+\def\Large{\fontsize{18}{10}\selectfont}
+\def\huge{\fontsize{26}{10}\selectfont}
+\def\Huge{\fontsize{36}{30}\selectfont}
+
+\titleformat{\section}
+  {\fontsize{18pt}{15}\bfseries}
+  {\selectfont\thesection.}
+  {0.5em}
+  {}
+
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=3]{DFKai-SB} %设置中文字体\XeTeXlinebreaklocale “zh”\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt %文章内中文自动换行
+
+
+\usepackage{minted}
+\setminted{
+baselinestretch=1,
+fontsize=\small,
+python3=true,
+style = tango,
+}
+
+
+\usepackage{caption}
+\newenvironment{code}{\captionsetup{type=listing, font=large}}{}
+
+\captionsetup{font=large}
+
+
+
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{makecell}
+\renewcommand{\arraystretch}{1.2}
+
+% % 首行縮排
+% \usepackage{indentfirst}
+% % 首行縮排距離
+% \setlength\parindent{28pt}
+
+\renewcommand{\figurename}{Fig.}
+
+\setmainfont{Times New Roman}
+
+\title{\textbf{{\huge HW1} \\ 記憶體積體電路\ Memory\ Circuit\ Design}}
+\author{{\Large\textbf{ 電機4A\quad 109501201\quad 陳緯亭}}}
+\date{\Large{\today}} 
+
+
+
+\begin{document}
+
+% 首行縮排距離
+\setlength\parindent{28pt}
+
+% 段落後間距
+\setlength\parskip{14pt}
+
+
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\maketitle
+
+\fontsize{14pt}{1.5em}
+
+\selectfont
+
+    \section{ DC Analysis-An Invertor}
+\noindent  { \bf (a)} Plot the transfer curve in function of the $V_{input}$ as x axle against $V_{output}$ as y axle with $V_{dd}=1V$ and different ratios of $W_p/W_n$, such as 0.5, 1 and 2.
+        
+        \begin{table}[H]
+            \centering\large
+            \caption{The settings of $W_p$ and $W_n$}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                \textbf{Node} & \textbf{$W_p/W_n$} & \textbf{$W_p (\mu \rm m)$} & \textbf{$W_n (\mu \rm m)$} \\
+                \hline
+               ratio05 & 0.5 & 0.5 & 1\\
+                \hline
+                ratio1 & 1 & 1 & 1\\
+                \hline
+                ratio2 & 2 & 1 & 0.5\\
+                \hline
+            \end{tabular}
+        \end{table}
+           
+            
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{./img/2023-10-18-12-53-44.png}
+        \caption{Beta ratio effects}
+        \label{beta}
+    \end{figure}
+
+\vspace*{-2em}
+
+\par According to the Fig.~\ref{beta},  the transition is from high to low. When $W_p/W_n = 1$, the curve can be going through the center where this point here is $V_{dd}/2$. When $W_p/W_n > 1$, this make the curve shift to the right. That is because the PMOS is too strong that leads to the NMOS needs large gate source voltage to match the current in the PMOS, and vice versa. When $W_p/W_n < 1$, this make the curve shift to the left. The conclusion is the ratio $W_p/W_n$ is changed the transitions region shifts.
+
+\clearpage
+
+\noindent  { \bf (b)} Plot the transfer curve in function of the $V_{input}$ as x axle against $V_{output}$ as y axle with different values of $V_{dd}$ = 1 V, 0.8 V, 0.6 V, and 0.4 V.
+
+        \begin{table}[H]
+            \centering\large
+            \caption{The settings of $V_{dd}$}
+            \begin{tabular}{|c|c|}
+                \hline
+                \textbf{Node} & \textbf{$V_{DD}$ (V)}  \\
+                \hline
+               V1 & 1\\
+                \hline
+                V08 & 0.8\\
+                \hline
+                V06 & 0.6\\
+                \hline
+                V04 & 0.4 \\ \hline
+            \end{tabular}
+        \end{table}
+
+    For the DC operating points, the currents through the centre of the NMOS and PMOS devices must be equal and approximate to $V_{out}=V_{dd}/2$. The below figure indicates that these points are at about $V_{out}$ = 0.5, 0.4, 0.3, and 0.2 V.
+
+    \begin{figure}[H]
+        
+        \centering
+        \includegraphics[width=0.6\textwidth]{./img/2023-10-18-12-54-38.png}
+        \caption{Voltage transfer characteristics (VPC)}
+    \end{figure}
+
+
+    \noindent   { \bf  (c)} Plot the $I_{dd}$, which flows from the gorund to the $V_{dd}$, in function of the $V_{input}$. You may sweep the $V_{input}$ from 0V to $V_{dd}$ to collect the data of $I_{dd}$ and plot it.
+
+    \begin{table}[H]
+        \centering\large
+        \caption{The settings of $W_p$ and $W_n$}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \textbf{\makecell{Signal\\Name}} & \textbf{$W_p/W_n$} & \textbf{$W_p (\mu \rm m)$} & \textbf{$W_n (\mu \rm m)$} \\
+            \hline
+           xinv05.i(mp) & 0.5 & 0.5 & 1\\
+            \hline
+            xinv1.i(mp) & 1 & 1 & 1\\
+            \hline
+            xinv2.i(mp) & 2 & 1 & 0.5\\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    According to Fig~\ref{Iinv}, this demonstrates that when $V_{in}=0$ or $V_{in}=V_{dd}$, the pmos is switched off. No current flows in this area. A peak current is reached, which leads to the maximum current drawn from the supply. However, the direction of $I_{dd}$ is opposite to the direction of the supply to ground. Therefore, the diagram is inverted.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./img/2023-10-24-22-26-57.png}
+    \caption{The current drawn from the ground}
+    \label{Iinv}
+\end{figure}
+
+
+
+\noindent   { \bf  (d)} Plot the output power, which is defined as $P_{output}=V_{output}\times I_{dd}$. You may sweep the $V_{input}$ from 0V to $V_{dd}$ to collect the data of $I_{dd}$ and $V_{output}$.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{./img/2023-10-24-22-26-46.png}
+        \caption{DC Analysis - $P_{output}$}
+        \label{Pout}
+    \end{figure}
+
+    \begin{table}[H]
+        \centering\large
+        \caption{The settings of $W_p$ and $W_n$}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \textbf{\makecell{Signal\\Name}} & \textbf{$W_p/W_n$} & \textbf{$W_p (\mu \rm m)$} & \textbf{$W_n (\mu \rm m)$} \\
+            \hline
+           PWR0.5 & 0.5 & 0.5 & 1\\
+            \hline
+            PWR1 & 1 & 1 & 1\\
+            \hline
+            PWR2 & 2 & 1 & 0.5\\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{./img/2023-10-24-22-22-11.png}
+        \caption{The power consumption calculated by the equation builder
+        }
+        \label{build-P}
+    \end{figure}
+
+    
+    \clearpage 
+
+    \section{ Functionality of the Basic Gate}
+    
+    \noindent    Please verify the functionality of the 2-to-1 NAND, NOR, XOR.
+        \hspace*{1em}
+        \begin{itemize}
+
+            \item NAND
+            \begin{table}[H]
+                \caption{4 output results of NAND}
+                \centering\large
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{vain} & \textbf{vbin} & \textbf{vout}  \\
+                    \hline
+                    0 & 0 & 1\\
+                    \hline
+                    0 & 1 & 1\\
+                    \hline
+                    1 & 0 & 1\\
+                    \hline
+                    1 & 1 & 0 \\ \hline
+                \end{tabular}
+                \label{NAND}
+            \end{table}
+
+    There are two kinds of input $vain$ and $vbin$. This means that there are 4 output results which shown in Table~\ref{NAND}.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-19-05-44.png}
+    \caption{4T Nand Gate}
+    \label{filter}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{0.5\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-19-06-08.png}
+    \caption{Waveform for NAND's functionality}
+    \label{db10}
+    \end{minipage}
+    \end{figure}
+
+
+
+            \item NOR
+            
+\begin{table}[H]
+    \caption{4 output results of NOR}
+    \centering\large
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{vain} & \textbf{vbin} & \textbf{vout}  \\
+        \hline
+        0 & 0 & 1\\
+        \hline
+        0 & 1 & 0\\
+        \hline
+        1 & 0 & 0\\
+        \hline
+        1 & 1 & 0 \\ \hline
+    \end{tabular}
+    \label{NOR}
+\end{table}
+
+There are two kinds of input $vain$ and $vbin$. This means that there are 4 output results which shown in Table~\ref{NOR}.
+            
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-19-28-47.png}
+    \caption{4T NOR Gate}
+    \label{nor1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{0.6\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-19-29-06.png}
+    \caption{Waveform for NOR's functionality}
+    \label{nor2}
+    \end{minipage}
+\end{figure}
+
+
+            \item XOR
+\begin{table}[H]
+    \centering\large
+    \caption{4 output results of XOR}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{a} & \textbf{b} & \textbf{vout}  \\
+        \hline
+        0 & 0 & 0\\
+        \hline
+        0 & 1 & 1\\
+        \hline
+        1 & 0 & 1\\
+        \hline
+        1 & 1 & 0 \\ \hline
+    \end{tabular}
+    \label{XOR}
+\end{table}
+
+There are two kinds of input $a$ and $b$. This means that there are 4 output results which shown in Table~\ref{XOR}.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.25\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-21-30-55.png}
+    \caption{12T XOR Gate}
+    \label{xor1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{0.5\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-21-28-54.png}
+    \caption{Waveform for XOR's functionality}
+    \label{xor2}
+    \end{minipage}
+\end{figure}
+
+        \end{itemize}
+        
+    \section{ Functionaliy of the Transmission Gate}
+
+Please verify the functionality of transmission gate.
+
+\begin{table}[H]
+    \centering\large
+    \caption{4 output results of TG}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{en} & \textbf{vin} & \textbf{vout}  \\
+        \hline
+        1 & 0 & 0\\
+        \hline
+        1 & 1 & 1\\
+        \hline
+        0 & 0 & High impedance or floating\\
+        \hline
+        0 & 1 & High impedance or floating \\ \hline
+    \end{tabular}
+    \label{TG}
+\end{table}
+
+There are two kinds of input $vin$ and $en$. This means that there are 4 output results which shown in Table~\ref{TG}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-21-57-06.png}
+    \caption{4T Transmission Gate}
+    \label{TG1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{0.6\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-18-22-49-06.png}
+    \caption{Waveform for TG's functionality}
+    \label{TG2}
+    \end{minipage}
+\end{figure}
+ 
+
+\section{ Functionality of the Basic Gate}
+
+Please verify the functionality of the 4-to-1 MUX.
+
+There are two kinds of main control signal $s_0$ and $s_1$. The result is shown in Fig.~\ref{TG}.
+
+\begin{table}[H]
+    \centering\large
+    \caption{4 output results of 4-to-1 MUX}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{$s1$} & \textbf{$s0$} & \textbf{vout}  \\
+        \hline
+        0 & 0 & d0\\
+        \hline
+        0 & 1 & d1\\
+        \hline
+        1 & 0 & d2\\
+        \hline
+        1 & 1 & d3\\ \hline
+    \end{tabular}
+    \label{mux}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.35\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-19-00-12-26.png}
+    \caption{14T 4-to-1 MUX}
+    \label{mux1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{0.6\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-19-00-12-12.png}
+    \caption{Waveform for 4-to-1 MUX's functionality}
+    \label{mux2}
+    \end{minipage}
+\end{figure}
+
+\section{Functionality of the Decoder}
+
+Please verify the functionality of the 3-to-8 decoder.
+
+\begin{table}[H]
+    \centering\large
+    \caption{9 output results of 3-to-8 Decoder}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{$en$} & \textbf{$c$} &  \textbf{$b$} &  \textbf{$a$} & \textbf{$d0$} &  \textbf{$d1$} &  \textbf{$d2$} &  \textbf{$d3$} &  \textbf{$d4$} &  \textbf{$d5$} &  \textbf{$d6$} &  \textbf{$d7$} \\
+        \hline
+        0 & x & x & x & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+        \hline
+        1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+        \hline
+        1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+        \hline
+        1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+        \hline
+        1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+        \hline
+        1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+        \hline
+        1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+        \hline
+        1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+        \hline
+        1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+        \hline
+    \end{tabular}
+    \label{decoder}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.7\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-20-16-18-21.png}
+    \caption{86T 3-to-8 decoder}
+    \label{decoder1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}[t]{1\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{./img/2023-10-20-16-19-14.png}
+    \caption{Waveform for 3-to-8 decoder's functionality}
+    \label{decoder2}
+    \end{minipage}
+\end{figure}
+
+
+
+
+\end{document}

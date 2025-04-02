@@ -1,0 +1,87 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{***} \PYG{n}{NOR}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{type} \PYG{n}{TCAM} \PYG{o}{***}
+\PYG{o}{***} \PYG{p}{.}\PYG{n}{protect}
+\PYG{p}{.}\PYG{n}{inc} \PYG{l+s}{\PYGZdq{}/home/college/c109501201/Memory/65nm\PYGZus{}bulk.pm\PYGZdq{}}
+\PYG{p}{.}\PYG{n}{unprotect}
+\PYG{o}{***} 
+
+\PYG{p}{.}\PYG{n}{param} \PYG{n}{VDD} \PYG{p}{=} \PYG{l+m+mi}{1}
+\PYG{o}{***}
+\PYG{p}{.}\PYG{k}{global} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{VDD}\PYG{o}{!}
+\PYG{n}{VDD}    \PYG{n}{VDD}\PYG{o}{!} \PYG{l+m+mi}{0}   \PYG{n}{dc} \PYG{n}{VDD}
+\PYG{n}{VSS}    \PYG{n}{VSS}\PYG{o}{!} \PYG{l+m+mi}{0}    \PYG{n}{dc}  \PYG{l+m+mi}{0}
+
+\PYG{o}{***}\PYG{n}{inverter}
+\PYG{o}{**} \PYG{n}{Mos} \PYG{n}{D} \PYG{n}{G} \PYG{n}{S} \PYG{n}{B}
+\PYG{o}{**} \PYG{p}{.}\PYG{n}{ic} 是初始偏壓值
+\PYG{p}{.}\PYG{n}{subckt} \PYG{n+nb}{inv} \PYG{n}{in} \PYG{n}{out} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mi}{1} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mi}{1}
+\PYG{n}{Mp} \PYG{n}{out} \PYG{n}{in} \PYG{n}{VDD}\PYG{o}{!} \PYG{n}{VDD}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wp * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{n}{Mn} \PYG{n}{out} \PYG{n}{in} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{nmos} \PYG{n}{w}\PYG{p}{=} \PYG{l+s}{\PYGZsq{}Wn * 1u\PYGZsq{}} \PYG{n}{l}\PYG{p}{=}\PYG{l+m+mi}{65}\PYG{n}{n} \PYG{n}{m}\PYG{p}{=}\PYG{l+m+mi}{1}
+\PYG{p}{.}\PYG{n}{ends}
+
+\PYG{o}{***} \PYG{n}{store}
+\PYG{o}{*} \PYG{n}{VWL}   \PYG{n}{WL} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{1}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VPRE} \PYG{n}{PRE} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.7}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{1.5}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VS}   \PYG{n}{SL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VSB}  \PYG{n}{SLB} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VD}   \PYG{n}{BL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VDB}  \PYG{n}{BLB} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VWE}   \PYG{n}{WE} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{n}{V} \PYG{n}{VDD} \PYG{l+m+mi}{0}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{xweb} \PYG{n}{WE} \PYG{n}{WEB} \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{o}{*} \PYG{n}{xinvB} \PYG{n}{BL} \PYG{n}{BLB}  \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{o}{*} \PYG{n}{xinvD} \PYG{n}{BL} \PYG{n}{BLB}  \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+
+\PYG{o}{***} \PYG{n}{search} \PYG{n}{care} \PYG{n+nb}{mode}
+\PYG{o}{*} \PYG{n}{VWL}   \PYG{n}{WL} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{1}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VPRE} \PYG{n}{PRE} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.7}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{1.5}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VS}   \PYG{n}{SL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VSB}  \PYG{n}{SLB} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VD}   \PYG{n}{BL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VDB}  \PYG{n}{BLB} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+
+
+\PYG{o}{***} \PYG{n}{search} \PYG{n}{don}\PYG{o}{\PYGZsq{}}\PYG{n}{t} \PYG{n}{care} \PYG{n+nb}{mode}
+\PYG{n}{VWL}   \PYG{n}{WL} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{1}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{n}{VPRE} \PYG{n}{PRE} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.7}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{1.5}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{n}{VS}   \PYG{n}{SL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{n}{VSB}  \PYG{n}{SLB} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+\PYG{n}{VD}   \PYG{n}{BL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{dc} \PYG{n}{VDD}
+\PYG{n}{VDB}  \PYG{n}{BLB} \PYG{n}{VSS}\PYG{o}{!}  \PYG{n}{dc} \PYG{n}{VDD}
+
+\PYG{o}{*} \PYG{n}{VWL}   \PYG{n}{WL} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{1}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VPRE} \PYG{n}{PRE} \PYG{n}{VSS}\PYG{o}{!} \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}  \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.7}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{1.5}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VS}   \PYG{n}{SL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{dc} \PYG{l+m+mi}{0}
+\PYG{o}{*} \PYG{n}{VSB}  \PYG{n}{SLB} \PYG{n}{VSS}\PYG{o}{!}  \PYG{n}{dc} \PYG{l+m+mi}{0}
+\PYG{o}{*} \PYG{n}{VD}   \PYG{n}{BL} \PYG{n}{VSS}\PYG{o}{!}   \PYG{n}{pulse}\PYG{p}{(}\PYG{n}{VDD}  \PYG{l+m+mi}{0}   \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns} \PYG{l+m+mi}{8}\PYG{n}{ns}\PYG{p}{)}
+\PYG{o}{*} \PYG{n}{VDB}  \PYG{n}{BLB} \PYG{n}{VSS}\PYG{o}{!}  \PYG{n}{pulse}\PYG{p}{(}\PYG{l+m+mi}{0}  \PYG{n}{VDD}   \PYG{l+m+mf}{0.1}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mf}{0.05}\PYG{n}{ns} \PYG{l+m+mi}{2}\PYG{n}{ns} \PYG{l+m+mi}{4}\PYG{n}{ns}\PYG{p}{)}
+
+
+\PYG{o}{***} \PYG{n}{precharge}
+\PYG{n}{Mpmlu} \PYG{n}{ML}  \PYG{n}{PRE}  \PYG{n}{VDD}\PYG{o}{!} \PYG{n}{VDD}\PYG{o}{!} \PYG{n}{pmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mi}{65}\PYG{n}{n}
+
+
+\PYG{n}{xinv1}   \PYG{n}{m1g}     \PYG{n}{Qi}              \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xinv2}   \PYG{n}{Qi}      \PYG{n}{m1g}             \PYG{n+nb}{inv}  \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{MNwd}    \PYG{n}{Qi}       \PYG{n}{WL}    \PYG{n}{BL}   \PYG{n}{gnd} \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{5}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mi}{65}\PYG{n}{n}
+
+\PYG{n}{xinv3}   \PYG{n}{m2g}     \PYG{n}{QiB}         \PYG{n+nb}{inv} \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{xinv4}   \PYG{n}{QiB}    \PYG{n}{m2g}          \PYG{n+nb}{inv}  \PYG{n}{Wp} \PYG{p}{=} \PYG{l+m+mf}{0.25} \PYG{n}{Wn} \PYG{p}{=} \PYG{l+m+mf}{0.1}
+\PYG{n}{MNwdb}   \PYG{n}{QiB}    \PYG{n}{WL}   \PYG{n}{BLB}   \PYG{n}{gnd} \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{5}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mi}{65}\PYG{n}{n}
+
+
+\PYG{n}{MN1}   \PYG{n}{ML}   \PYG{n}{m1g}   \PYG{l+m+mi}{1}     \PYG{n}{gnd}  \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mf}{0.2}\PYG{n}{u}
+\PYG{n}{MN3}   \PYG{l+m+mi}{1}    \PYG{n}{SL}    \PYG{n}{gnd}   \PYG{n}{gnd}  \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mf}{0.2}\PYG{n}{u}
+
+\PYG{n}{MN2}   \PYG{n}{ML}   \PYG{n}{m2g}    \PYG{l+m+mi}{2}     \PYG{n}{gnd}  \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mf}{0.2}\PYG{n}{u}
+\PYG{n}{MN4}   \PYG{l+m+mi}{2}    \PYG{n}{SLB}    \PYG{n}{gnd}   \PYG{n}{gnd}  \PYG{n}{nmos} \PYG{n}{w} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{n}{u} \PYG{n}{l} \PYG{p}{=} \PYG{l+m+mf}{0.2}\PYG{n}{u}
+
+
+\PYG{p}{.}\PYG{n}{tran}    \PYG{l+m+mi}{1}\PYG{n}{p}    \PYG{l+m+mi}{8}\PYG{n}{ns} 
+\PYG{p}{.}\PYG{n}{MEAS} \PYG{n}{TRAN} \PYG{n}{AvgPower} \PYG{n}{AVG}\PYG{p}{(}\PYG{n+nb}{power}\PYG{p}{)} \PYG{n}{FROM}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{n}{pS} \PYG{n}{TO}\PYG{p}{=}\PYG{l+m+mi}{10}\PYG{n}{ns}
+
+
+\PYG{p}{.}\PYG{n}{option} \PYG{n}{post}
+\PYG{p}{.}\PYG{k}{end}
+
+
+\end{Verbatim}

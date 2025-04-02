@@ -1,0 +1,423 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{float}
+\geometry{a4paper, left=2.54cm, right=2.54cm, top=2.54cm, bottom=2.54cm}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{bm}
+% 段落間距  (begin doc 才設定)
+\usepackage{parskip}
+    % 普通文字，行距
+    \usepackage[onehalfspacing]{setspace}
+    
+\usepackage{tabularx}
+
+\usepackage{fontspec,xltxtra,xunicode}
+
+
+\setmainfont{Times New Roman}
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=3]{DFKai-SB} %设置中文字体\XeTeXlinebreaklocale “zh”\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt %文章内中文自动换行
+
+
+\usepackage{minted}
+\renewcommand{\theFancyVerbLine}{\sffamily\small\arabic{FancyVerbLine}}
+\setminted{
+  baselinestretch=1,
+  fontsize=\fontsize{10pt}{12pt},
+  python3=true,
+  style=tango,
+  linenos=true,
+  xleftmargin=20pt,     % 控制行号距离左侧的距离
+}
+
+
+
+
+\usepackage{caption}
+\newenvironment{code}{\captionsetup{type=listing, font=large, name=List.}}{}
+\captionsetup{font={large}}
+
+
+\usepackage{titlesec}
+
+
+
+\def\Large{\fontsize{18}{20}\selectfont}
+\def\huge{\fontsize{26}{10}\selectfont}
+\def\Huge{\fontsize{36}{54}\selectfont}
+
+\titleformat{\section}
+  {\fontsize{18pt}{15}\bfseries}
+  {\selectfont\thesection.}
+  {0.5em}
+  {}
+
+\usepackage{longtable}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.2}
+
+\renewcommand{\figurename}{Fig.}
+
+
+\title{\textbf{{\huge Code - HW1} \\ 記憶體積體電路\ Memory\ Circuit\ Design}}
+\author{{\Large\textbf{ 電機4A\quad 109501201\quad 陳緯亭}}}
+\date{\Large{\today}} 
+
+\begin{document}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\maketitle
+
+\fontsize{14pt}{1em}
+
+\selectfont
+
+\section{DC Analysis-An Invertor}
+
+\begin{code}
+        \caption{DC Analysis - An Invertor}
+            \label{inv}
+        \begin{minted}[linenos, breaklines]{spice}
+*** Inverter ***
+*** .protect
+.inc "/home/bc/c109501201/Memory/65nm_bulk.pm"
+.unprotect
+*** 
+.param Vmax = 1
+***
+.global VCC! VSS! 
+VCC    VCC! 0    dc Vmax
+VSS    VSS! 0    dc  0
+
+***inverter
+** Mos D G S B
+** .ic 是初始偏壓值
+.subckt inv in out Wp = 1 Wn = 1 VDD = 1
+.ic VDD! = VDD 
+Mp out in VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mn out in VSS! VSS!    nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+*** 1.a
+xinv05 vin ratio05 inv Wp = 0.5 Wn = 1
+xinv1 vin ratio1 inv Wp = 1 Wn = 1
+xinv2 vin ratio2 inv Wp = 2 Wn = 1
+
+*** 1.b
+xinv4 vin V1 inv VDD = 1
+xinv5 vin V08 inv VDD = 0.8
+xinv6 vin V06 inv VDD = 0.6
+xinv7 vin V04 inv VDD = 0.4
+
+*** 訊號源
+va vin VSS!
+
+.dc va 0 Vmax 0.001V
+.option post
+*** 1.c 可以量 Ids
+.probe dc I(xinv1.Mp)
+.probe dc I(xinv1.Mn)
+
+.probe dc I(xinv05.Mp)
+
+.probe dc I(xinv2.Mp)
+*** 1.d 去 lis 檔找資料，繪圖
+** Way 1
+.print Vo = 'V(ratio1)' 
+.print Idd = 'I(xinv1.Mp)'
+** 這是平均 power 不是題目要求
+.meas dc pwr avg power from=0V to=1V
+.end
+\end{minted}
+        \end{code}
+
+    \section {\bf Functionality of the Basic Gate}
+    
+        Please verify the functionality of the 2-to-1 NAND, NOR, XOR.
+        \hspace*{1em}
+        \begin{itemize}
+
+            \item NAND
+
+\begin{code}
+    \caption{Transient Analysis - An NAND}
+    \begin{minted}[linenos, breaklines]{spice}
+**NAND gate**
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+MP1 vout   vain vdd    vdd   pmos  W=3u  L=0.065u
+MP2 vout   vbin vdd    vdd   pmos  W=3u  L=0.065u
+MN1 vout   vain NET1   NET1  nmos  W=1.5u  L=0.065u
+MN2 NET1   vbin  gnd   gnd   nmos  W=1.5u  L=0.065u
+
+vdd vdd gnd dc 1
+vain  vain gnd pulse(0V  1V 0s 0.005ns 0.005ns 1.5ns 3ns)
+vbin  vbin gnd pulse(0V  1V 0s 0.005ns 0.005ns 3ns 6ns)
+
+.tran 0.1ns 6ns
+.option post=1
+
+.print v(vout)
+.print v(vain)
+.print v(vbin)
+.end
+        
+\end{minted}
+    \end{code}
+
+\item NOR
+
+\begin{code}
+\caption{Transient Analysis - An NOR}
+\begin{minted}[linenos, breaklines]{spice}
+*** NOR Gate ***
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+
+MP1 NET1   vain  vdd    vdd   pmos  W=0.2u  L=0.065u
+MP2 vout   vbin  NET1   NET1   pmos  W=0.2u  L=0.065u
+MN1 vout   vain  gnd   gnd    nmos  W=0.1u  L=0.065u
+MN2 vout   vbin  gnd   gnd   nmos  W=0.1u  L=0.065u
+
+vdd vdd gnd dc 1
+vain  vain gnd pulse(0V  1V 0s 0.005ns 0.005ns 1.5ns 3ns)
+vbin  vbin gnd pulse(0V  1V 0s 0.005ns 0.005ns 3ns 6ns)
+
+.tran 0.1ns 6ns
+.option post=1
+
+.print v(vout)
+.print v(vain)
+.print v(vbin)
+.end
+\end{minted}
+    \end{code}
+
+            \item XOR
+\begin{code}
+    \caption{Transient Analysis - An XOR}
+        \label{inv}
+    \begin{minted}[linenos, breaklines]{spice}
+*** XOR Gate ***
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+
+*** 
+.param Vmax = 1
+***
+.global VCC! VSS! 
+VCC    VCC! 0    dc Vmax
+VSS    VSS! 0    dc  0
+
+
+***inverter
+** Mos D G S B
+** .ic 是初始偏壓值
+.subckt inv in out Wp = 1 Wn = 1
+Mp out in VCC! VCC! pmos w= 'Wp * 1u' l=65n m=1
+Mn out in VSS! VSS! nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+xinv1 a   abar  inv Wp = 0.2 Wn = 0.1
+xinv2 b   bbar  inv Wp = 0.2 Wn = 0.1
+
+* Mp vout b VDD! VDD! pmos w= 0.07u l=65n m=1
+* Mn vout b NET1 VSS! nmos w= 0.5u l=65n m=1
+
+MP1 4     b    VCC!    VCC!   pmos  W=0.2u  L=0.065u
+MP2 vout  abar    4    VCC!   pmos  W=0.2u  L=0.065u
+MP3 3     a    VCC!    VCC!   pmos  W=0.2u  L=0.065u
+MP4 vout  bbar    3    VCC!   pmos  W=0.2u  L=0.065u
+
+MN1 vout   abar 1    VSS!   nmos  W=0.1u  L=0.065u
+MN2 1      bbar VSS! VSS!   nmos  W=0.1u  L=0.065u
+MN3 vout   a    2    VSS!   nmos  W=0.1u  L=0.065u
+MN4 2      b   VSS!    VSS!   nmos  W=0.1u  L=0.065u
+
+vain  a VSS! pulse(1V  0V 0s 0.005ns 0.005ns 1.5ns 3ns)
+vbin  b VSS! pulse(1V  0V 0s 0.005ns 0.005ns 3ns 6ns)
+
+.tran 0.1ns 6ns
+.option post=1
+.end  
+\end{minted}
+    \end{code}
+        \end{itemize}
+
+
+\clearpage
+    \section {\bf Functionaliy of the Transmission Gate}
+
+Please verify the functionality of transmission gate.
+
+\begin{code}
+    \caption{Transient Analysis - An Transmission Gate}
+        \label{TG}
+    \begin{minted}[linenos, breaklines]{spice}
+*** Transmission Gate *** 
+*** .protect
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+.unprotect
+*** 
+.param Vmax = 1
+***
+.global VDD! VSS! 
+VCC    VDD! 0    dc Vmax
+VSS    VSS! 0    dc  0
+
+***inverter
+.subckt inv in out Wp = 1 Wn = 1
+Mp out in VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mn out in VSS! VSS!    nmos w= 'Wn * 1u' l=65n m=1
+.ends
+*** TG : Transmission Gate
+.subckt TG in out Wp = 1 Wn = 1
+Mp out enbar in VDD! pmos w= 'Wp * 1u' l=65n m=1
+xinv en enbar inv
+Mn out   en  in VSS!    nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+xtg1 vin vout TG Wp = 0.5 Wn = 1
+
+v1  vin gnd pulse(0V  1V 0s 0.005ns 0.005ns 2ns 4ns)
+
+.tran 0.1ns 6ns
+.option post=1
+.end
+\end{minted}
+    \end{code}
+\clearpage
+\section {\bf Functionality of the Basic Gate}
+
+Please verify the functionality of the 4-to-1 MUX.
+
+\begin{code}
+    \caption{Transient Analysis - An 4-to-1 MUX}
+    \begin{minted}[linenos, breaklines]{spice}
+*** 4-to-1 MUX ***
+*** .protect
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+.unprotect
+*** 
+.param Vmax = 1
+.param per1 = 'pw1*2' per2 = 'pw2*2' per3 = 'pw3*2' per4 = 'pw4 * 2' per5 = 'pw5*2' per6 = 'pw6*2' per7 = 'pw7*2'
+.param pw1 =  4n pw2 =  8n  pw3 = 16n  pw4 = 32n   pw5 = 64n  pw6 = 128n  pw7 = 256n
+.param n = 0.4
+.param p = 0.4
+***
+.global VDD! VSS! 
+VCC    VDD! 0    dc Vmax
+VSS    VSS! 0    dc  0
+
+***inverter
+.subckt inv in out Wp = 2 Wn = 1
+Mp out in VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mn out in VSS! VSS!    nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+*** TG : Transmission Gate
+.subckt TG in out en enbar Wp = 1 Wn = 1
+Mp out enbar in VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mn out   en  in VSS!    nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+xinv0 s0 s0bar inv  Wp = p Wn = n
+xinv1 s1 s1bar inv  Wp = p Wn = n
+
+xtg1 d0 NET0 s0bar s0 TG Wp = p Wn = n
+xtg2 d1 NET0 s0 s0bar TG Wp = p Wn = n
+xtg3 d2 NET1 s0bar s0 TG Wp = p Wn = n
+xtg4 d3 NET1 s0 s0bar TG Wp = p Wn = n
+xtg5 NET1 vout s1 s1bar TG Wp = p Wn = n
+xtg6 NET0 vout s1bar s1 TG Wp = p Wn = n
+
+
+vs1 s1  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw6 per6)
+vs0 s0  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw5 per5)
+vd3 d3  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw4 per4)
+vd2 d2  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw3 per3)
+vd1 d1  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw2 per2)
+vd0 d0  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw1 per1)
+
+.tran 0.1ns per6
+.option post=1
+
+.end
+        
+\end{minted}
+    \end{code}
+
+\section{Functionality of the Decoder}
+
+Please verify the functionality of the 3-to-8 decoder.
+
+\begin{code}
+    \caption{Transient Analysis - An 3-to-8 Decoder}
+    \begin{minted}[linenos, breaklines]{spice}
+*** 3-to-8 decoder ***
+*** .protect
+.inc "/home/college/c109501201/Memory/65nm_bulk.pm"
+.unprotect
+*** 
+.param Vmax = 1
+.param per1 = 'pw1*2' per2 = 'pw2*2' per3 = 'pw3*2' per4 = 'pw4 * 2' per5 = 'pw5*2' per6 = 'pw6*2' per7 = 'pw7*2'
+.param pw1 =  4n pw2 =  8n  pw3 = 16n  pw4 = 32n   pw5 = 64n  pw6 = 128n  pw7 = 256n
+.param n = 0.4
+.param p = 0.4
+***
+.global VDD! VSS! 
+VCC    VDD! 0    dc Vmax
+VSS    VSS! 0    dc  0
+
+***inverter
+.subckt inv in out Wp = 2 Wn = 1
+Mp out in VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mn out in VSS! VSS! nmos w= 'Wn * 1u' l=65n m=1
+.ends
+
+*** AND : Transmission Gate
+.subckt AND in1 in2 in3 in4 out Wp = 2 Wn = 1
+Mn1 1 in1 gnd gnd nmos w= 'Wn * 1u' l=65n m=1
+Mn2 2 in2 1 gnd nmos w= 'Wn * 1u' l=65n m=1
+Mn3 3 in3 2 gnd nmos w= 'Wn * 1u' l=65n m=1
+Mn4 nout in4 3 gnd nmos w= 'Wn * 1u' l=65n m=1
+
+Mp1 nout in1 VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mp2 nout in2 VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mp3 nout in3 VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+Mp4 nout in4 VDD! VDD! pmos w= 'Wp * 1u' l=65n m=1
+
+xinv nout out inv
+.ends
+
+xinv0 a abar inv  Wp = p Wn = n
+xinv1 b bbar inv  Wp = p Wn = n
+xinv2 c cbar inv  Wp = p Wn = n
+
+xAND1 en abar bbar cbar d0 AND Wp = p Wn = n
+xAND2 en a    bbar cbar d1 AND Wp = p Wn = n
+xAND3 en abar b    cbar d2 AND Wp = p Wn = n
+xAND4 en a    b    cbar d3 AND Wp = p Wn = n
+xAND5 en abar bbar c    d4 AND Wp = p Wn = n
+xAND6 en a    bbar c    d5 AND Wp = p Wn = n
+xAND7 en abar b    c    d6 AND Wp = p Wn = n
+xAND8 en a    b    c    d7 AND Wp = p Wn = n
+
+vd3 en  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw4 per4)
+vd2 c  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw3 per3)
+vd1 b  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw2 per2)
+vd0 a  gnd pulse(1V  0V 0s 0.005ns 0.005ns pw1 per1)
+
+.tran 0.1ns per4
+.option post=1
+
+.end
+\end{minted}
+\end{code}
+
+
+
+\end{document}
